@@ -33,7 +33,9 @@
 
             // Obtain the HTML from the component's `render` method.
             templateElement.content.appendChild(this.getDOMNode().cloneNode(true));
-            this.attachCSSDocuments(templateElement);
+            if (this.cssDocuments) {
+                this.attachCSSDocuments(templateElement);
+            }
 
             // Append the template node's content to our component.
             var clone = $document.importNode(templateElement.content, true);
@@ -96,31 +98,37 @@
 
         },
 
+
+        /**
+         * @method createStyle
+         * @param  {string} styleContent Content style for given element
+         * @return {HTMLElement}              
+         */
+        createStyle: function(element, styleContent) {
+            // Construct the HTML for the external stylesheets.
+            var styleElement = $document.createElement('style');
+            styleElement.innerHTML = styleContent;
+            element.content.appendChild(styleElement);
+            return element;
+        },
+
+
         /**
          * @method attachCSSDocuments
          * @param element {HTMLElement}
          * @return {HTMLElement}
          */
         attachCSSDocuments: function(element) {
-            var cssDocumentsPrefix = '';
+            var cssDocumentsPrefix = '',
+                that = this;
             if (typeof this.cssDocumentsPrefix === 'string') {
                 cssDocumentsPrefix = this.cssDocumentsPrefix;
             }
-            if (this.cssDocuments) {
-
-                this.cssDocuments.forEach(function forEach(cssDocument) {
-
-                    // Construct the HTML for the external stylesheets.
-                    var styleElement = $document.createElement('style');
-                    styleElement.innerHTML = '@import "' + cssDocumentsPrefix + cssDocument + '"';
-                    element.content.appendChild(styleElement);
-
-                });
-
-            }
-
+            this.cssDocuments.forEach(function forEach(cssDocument) {
+                var styleContent = '@import "' + cssDocumentsPrefix + cssDocument + '"';
+                that.createStyle(element, styleContent);
+            });
             return element;
-
         }
 
     };
