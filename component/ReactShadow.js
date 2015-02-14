@@ -20,7 +20,7 @@
          * @method componentDidMount
          * @return {void}
          */
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function() {
 
             // Wrap the current DOM node in a script element.
             var scriptElement = $document.createElement('script');
@@ -46,14 +46,14 @@
          * @method interceptEvents
          * @return {void}
          */
-        interceptEvents: function interceptEvents() {
+        interceptEvents: function() {
 
             /**
              * @method redirectEvent
              * @param event {Object}
              * @return {Function}
              */
-            var redirectEvent = function redirectEvent(event) {
+            var redirectEvent = function(event) {
 
                 event.stopPropagation();
                 event.preventDefault();
@@ -81,7 +81,7 @@
          * @method componentDidUpdate
          * @return {void}
          */
-        componentDidUpdate: function componentDidUpdate() {
+        componentDidUpdate: function() {
 
             var containerElement = this.shadowRoot.querySelector(':not(style)');
             containerElement.innerHTML = '';
@@ -101,7 +101,7 @@
          * @param element {HTMLElement}
          * @return {HTMLElement}
          */
-        attachCSSDocuments: function attachCSSDocuments(element) {
+        attachCSSDocuments: function(element) {
             var cssDocumentsPrefix = '';
             if (typeof this.cssDocumentsPrefix === 'string') {
                 cssDocumentsPrefix = this.cssDocumentsPrefix;
