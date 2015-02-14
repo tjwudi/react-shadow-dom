@@ -32,6 +32,15 @@ var ReadmeApp = $react.createClass({
     cssDocuments: ['../css/Default.css']
 });
 ```
+
+You can specify prefix for all paths in `cssDocuments`.
+
+```javascript
+ReactShadow.cssDocumentsPrefix = '../css/';
+var ReadmeApp = $react.createClass({
+    mixins: [ReactShadow],
+    cssDocuments: ['Default.css']  // actual path: ../css/Default.css
+});
 ```
 
 # Event Retargeting

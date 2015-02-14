@@ -2,6 +2,7 @@
 
     "use strict";
 
+
     /**
      * @module ReactShadow
      * @author Adam Timberlake
@@ -101,14 +102,17 @@
          * @return {HTMLElement}
          */
         attachCSSDocuments: function attachCSSDocuments(element) {
-
+            var cssDocumentsPrefix = '';
+            if (typeof this.cssDocumentsPrefix === 'string') {
+                cssDocumentsPrefix = this.cssDocumentsPrefix;
+            }
             if (this.cssDocuments) {
 
                 this.cssDocuments.forEach(function forEach(cssDocument) {
 
                     // Construct the HTML for the external stylesheets.
                     var styleElement = $document.createElement('style');
-                    styleElement.innerHTML = '@import "' + cssDocument + '"';
+                    styleElement.innerHTML = '@import "' + cssDocumentsPrefix + cssDocument + '"';
                     element.content.appendChild(styleElement);
 
                 });
