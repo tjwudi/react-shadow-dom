@@ -1,4 +1,4 @@
-# ReactShadow
+# ReactShadowDOM
 
 ![Travis](http://img.shields.io/travis/Wildhoney/ReactShadow.svg?style=flat)
 &nbsp;

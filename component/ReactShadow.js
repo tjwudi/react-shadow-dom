@@ -33,8 +33,16 @@
 
             // Obtain the HTML from the component's `render` method.
             templateElement.content.appendChild(this.getDOMNode().cloneNode(true));
-            if (this.cssDocuments) {
+
+            // Attach CSS
+            if (this.cssDocument && this.cssSource) {
+                throw new Error('cssDocuments and cssSource cannot be specified together').
+            }
+            if (this.cssDocuments && !this.cssSource) {
                 this.attachCSSDocuments(templateElement);
+            }
+            if (!this.cssDocuments && this.cssSource) {
+                this.attachCSSSource(templateElement);
             }
 
             // Append the template node's content to our component.
@@ -101,6 +109,7 @@
 
         /**
          * @method createStyle
+         * @param  {HTMLElement} element
          * @param  {string} styleContent Content style for given element
          * @return {HTMLElement}              
          */
@@ -110,6 +119,16 @@
             styleElement.innerHTML = styleContent;
             element.content.appendChild(styleElement);
             return element;
+        },
+
+
+        /**
+         * @method attachCSSSource
+         * @param  {HTMLElement} element
+         * @return {HTMLElement}      
+         */
+        attachCSSSource: function(element) {
+            this.createStyle(element, this.cssSource);
         },
 
 
