@@ -104,10 +104,7 @@
 
             if (this.cssDocuments) {
 
-                var isFunction   = typeof this.cssDocuments === 'function',
-                    cssDocuments = isFunction ? this.cssDocuments() : this.cssDocuments;
-
-                cssDocuments.forEach(function forEach(cssDocument) {
+                this.cssDocuments.forEach(function forEach(cssDocument) {
 
                     // Construct the HTML for the external stylesheets.
                     var styleElement = $document.createElement('style');

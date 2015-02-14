@@ -24,7 +24,7 @@ var ReadmeApp = $react.createClass({
 });
 ```
 
-From there `ReactShadow` will take over &ndash; creating a shadow root inside of your component, and importing any CSS documents defined in your `cssDocuments` property &ndash; which can be either an `array` or a `function`:
+From there `ReactShadow` will take over &ndash; creating a shadow root inside of your component, and importing any CSS documents defined in your `cssDocuments` property &ndash; which should be an `array`:
 
 ```javascript
 var ReadmeApp = $react.createClass({
@@ -32,16 +32,6 @@ var ReadmeApp = $react.createClass({
     cssDocuments: ['../css/Default.css']
 });
 ```
-
-If you're applying CSS documents at runtime then it may well be useful to have the `cssDocuments` property as a `function`:
-
-```javascript
-var ReadmeApp = $react.createClass({
-    mixins: [ReactShadow],
-    cssDocuments: function cssDocuments() {
-        return ['../css/Component.css', '../css/' + this.props.cssDocument];
-    }
-});
 ```
 
 # Event Retargeting
