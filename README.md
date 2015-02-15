@@ -43,6 +43,17 @@ var ReadmeApp = $react.createClass({
 });
 ```
 
+`cssSource` property can be used to inject CSS string. When both `cssDocuments` and `cssSource` are defined, style defined via `cssSource` will be attached after `cssDocuments` styles. Which means style defined via `cssSource` may override those defined in `cssDocuments`.
+
+```javascript
+ReactShadow.cssDocumentsPrefix = '../css/';
+var ReadmeApp = $react.createClass({
+    mixins: [ReactShadow],
+    cssSource: 'section { background-color: green; }'
+});
+
+```
+
 # Event Retargeting
 
 As Shadow DOM has the concept of [Event Retargeting](http://www.w3.org/TR/shadow-dom/#event-retargeting) for encapsulation purposes, event delegation will not function correctly because all events will appear to be coming from the Shadow DOM &ndash; therefore `ReactShadow` uses the React ID for each element to dispatch the event from the original element, therefore maintaining React's event delegation implementation.
