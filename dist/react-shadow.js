@@ -2,6 +2,7 @@
 
     "use strict";
 
+
     /**
      * @module ReactShadow
      * @author Adam Timberlake
@@ -19,7 +20,7 @@
          * @method componentDidMount
          * @return {void}
          */
-        componentDidMount: function componentDidMount() {
+        componentDidMount: function() {
 
             // Wrap the current DOM node in a script element.
             var scriptElement = $document.createElement('script');
@@ -32,7 +33,17 @@
 
             // Obtain the HTML from the component's `render` method.
             templateElement.content.appendChild(this.getDOMNode().cloneNode(true));
-            this.attachCSSDocuments(templateElement);
+
+            // Attach CSS
+            if (this.cssDocument && this.cssSource) {
+                throw new Error('cssDocuments and cssSource cannot be specified together');
+            }
+            if (this.cssDocuments && !this.cssSource) {
+                this.attachCSSDocuments(templateElement);
+            }
+            if (!this.cssDocuments && this.cssSource) {
+                this.attachCSSSource(templateElement);
+            }
 
             // Append the template node's content to our component.
             var clone = $document.importNode(templateElement.content, true);
@@ -45,14 +56,14 @@
          * @method interceptEvents
          * @return {void}
          */
-        interceptEvents: function interceptEvents() {
+        interceptEvents: function() {
 
             /**
              * @method redirectEvent
              * @param event {Object}
              * @return {Function}
              */
-            var redirectEvent = function redirectEvent(event) {
+            var redirectEvent = function(event) {
 
                 event.stopPropagation();
                 event.preventDefault();
@@ -80,7 +91,7 @@
          * @method componentDidUpdate
          * @return {void}
          */
-        componentDidUpdate: function componentDidUpdate() {
+        componentDidUpdate: function() {
 
             var containerElement = this.shadowRoot.querySelector(':not(style)');
             containerElement.innerHTML = '';
@@ -95,31 +106,48 @@
 
         },
 
+
+        /**
+         * @method createStyle
+         * @param  {HTMLElement} element
+         * @param  {string} styleContent Content style for given element
+         * @return {HTMLElement}              
+         */
+        createStyle: function(element, styleContent) {
+            // Construct the HTML for the external stylesheets.
+            var styleElement = $document.createElement('style');
+            styleElement.innerHTML = styleContent;
+            element.content.appendChild(styleElement);
+            return element;
+        },
+
+
+        /**
+         * @method attachCSSSource
+         * @param  {HTMLElement} element
+         * @return {HTMLElement}      
+         */
+        attachCSSSource: function(element) {
+            this.createStyle(element, this.cssSource);
+        },
+
+
         /**
          * @method attachCSSDocuments
          * @param element {HTMLElement}
          * @return {HTMLElement}
          */
-        attachCSSDocuments: function attachCSSDocuments(element) {
-
-            if (this.cssDocuments) {
-
-                var isFunction   = typeof this.cssDocuments === 'function',
-                    cssDocuments = isFunction ? this.cssDocuments() : this.cssDocuments;
-
-                cssDocuments.forEach(function forEach(cssDocument) {
-
-                    // Construct the HTML for the external stylesheets.
-                    var styleElement = $document.createElement('style');
-                    styleElement.innerHTML = '@import "' + cssDocument + '"';
-                    element.content.appendChild(styleElement);
-
-                });
-
+        attachCSSDocuments: function(element) {
+            var cssDocumentsPrefix = '',
+                that = this;
+            if (typeof this.cssDocumentsPrefix === 'string') {
+                cssDocumentsPrefix = this.cssDocumentsPrefix;
             }
-
+            this.cssDocuments.forEach(function forEach(cssDocument) {
+                var styleContent = '@import "' + cssDocumentsPrefix + cssDocument + '"';
+                that.createStyle(element, styleContent);
+            });
             return element;
-
         }
 
     };
