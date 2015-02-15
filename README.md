@@ -51,7 +51,6 @@ var ReadmeApp = $react.createClass({
     mixins: [ReactShadow],
     cssSource: 'section { background-color: green; }'
 });
-
 ```
 
 # Event Retargeting
