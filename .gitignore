@@ -10,4 +10,4 @@
 !/example/vendor/.gitkeep
 
 # Dist
-dist/
+/dist/
