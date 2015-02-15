@@ -14,18 +14,11 @@
         mixins: [ReactShadow],
 
         /**
-         * @property cssDocuments
-         * @type {Array}
-         */
-        //cssDocuments: ['../css/Default.css'],
-
-        /**
-         * @method cssDocuments
+         * @property {array} cssDocuments
          * @return {*[]}
          */
-        cssDocuments: function cssDocuments() {
-            return ['../css/Component.css', '../css/' + this.props.cssDocument];
-        },
+        cssDocuments: ['../css/Component.css', '../css/component/First.css'],
+
 
         /**
          * @method getInitialState
@@ -80,12 +73,8 @@
     });
 
     // Mount the node into the DOM!
-    var firstMountNode  = document.querySelector('*[data-react-shadow="first"]'),
-        secondMountNode = document.querySelector('*[data-react-shadow="second"]'),
-        thirdMountNode  = document.querySelector('*[data-react-shadow="third"]');
+    var mountNode  = document.querySelector('*[data-react-shadow="first"]');
 
-    $react.render(<AppExample cssDocument="component/First.css"></AppExample>, firstMountNode);
-    $react.render(<AppExample cssDocument="component/Second.css"></AppExample>, secondMountNode);
-    $react.render(<AppExample cssDocument="component/Third.css"></AppExample>, thirdMountNode);
+    $react.render(<AppExample/>, mountNode);
 
 })(window.React);
