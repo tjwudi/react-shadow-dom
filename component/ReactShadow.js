@@ -35,13 +35,10 @@
             templateElement.content.appendChild(this.getDOMNode().cloneNode(true));
 
             // Attach CSS
-            if (this.cssDocument && this.cssSource) {
-                throw new Error('cssDocuments and cssSource cannot be specified together');
-            }
-            if (this.cssDocuments && !this.cssSource) {
+            if (this.cssDocuments) {
                 this.attachCSSDocuments(templateElement);
             }
-            if (!this.cssDocuments && this.cssSource) {
+            if (this.cssSource) {
                 this.attachCSSSource(templateElement);
             }
 
