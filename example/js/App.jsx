@@ -15,10 +15,13 @@
 
         /**
          * @property {array} cssDocuments
-         * @return {*[]}
          */
         cssDocuments: ['../css/Component.css', '../css/component/First.css'],
 
+        /**
+         * @property {string} cssSource
+         */
+        cssSource: 'section { background-color: green; }',
 
         /**
          * @method getInitialState
