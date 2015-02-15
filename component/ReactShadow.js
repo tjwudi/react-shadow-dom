@@ -36,7 +36,7 @@
 
             // Attach CSS
             if (this.cssDocument && this.cssSource) {
-                throw new Error('cssDocuments and cssSource cannot be specified together').
+                throw new Error('cssDocuments and cssSource cannot be specified together');
             }
             if (this.cssDocuments && !this.cssSource) {
                 this.attachCSSDocuments(templateElement);
